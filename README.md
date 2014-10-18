@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Glider
 ======
 
@@ -25,3 +26,9 @@ A header with the title of the blog and a nice little image to go below it.
 The description line also says something different if there is no post to display.
 
 Working progress.
+=======
+adam-blog-glider
+================
+
+Blog Wordpress theme mods
+>>>>>>> e70e93ba3b42386d8a849437bdc4332cdcb9928a
