@@ -10,6 +10,8 @@ wp_enqueue_script( 'jquery-ui-effects-slide', 'http://jquery-ui.googlecode.com/s
 function register_my_menus()
 {
     register_nav_menu('header-menu',__( 'Header Menu' ));
+    register_nav_menu('portfolio-menu',__( 'Portfolio Menu' ));
+
 }
 
 add_action( 'init', 'register_my_menus' );
