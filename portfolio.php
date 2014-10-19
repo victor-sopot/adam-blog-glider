@@ -82,6 +82,9 @@ Template Name: Portfolio
 	<li id="showcase">
 
 		<div class="content">
+            <h3 class="subtitle">
+				Take a look at some of my work
+			</h3>
 
 			<ul>
 				<?php $args = array( 'post_type' => 'portfolio_item', 'posts_per_page' => 9 );
@@ -89,12 +92,12 @@ Template Name: Portfolio
 					while ( $loop->have_posts() ) : $loop->the_post();
 				?>
 				<li>
-					<img src="http://placehold.it/150x100" />
-					<h2>
-						<a rel="<?php the_permalink(); ?>" id="<?php the_id(); ?>" title="<?php echo( basename( get_permalink() ) ); ?>">
+					<a rel="<?php the_permalink(); ?>" id="<?php the_id(); ?>" title="<?php echo( basename( get_permalink() ) ); ?>">
+						<?php the_post_thumbnail(); ?>
+						<h1>
 							<?php the_title(); ?>
-						</a>
-					</h2>
+						</h1>
+					</a>
 					<span><?php the_time('F j Y') ?></span>
 				</li>				  
 				<?php endwhile; wp_reset_postdata(); 
