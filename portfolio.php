@@ -26,8 +26,8 @@ Template Name: Portfolio
 
 <body <?php body_class(); ?>>
 
-<a class="shift" id="goarchive">&rarr;</a>
-<a class="shift" id="gopost">&larr;</a>
+<a class="shift" id="goshowcase">&rarr;</a> <!-- LINK TO A VIEW OF ALL MY WORK -->
+<a class="shift" id="gopost">&larr;</a>	<!-- LINK TO A VIEW OF MY LATEST PROJECT -->
 
 <header class="pageHead">
 	<h1 class="mainTitle">Adam Portfolio</h1>
@@ -54,13 +54,17 @@ Template Name: Portfolio
 				Take a look at some of my work
 			</h3>
             
-            <div class="projPanel">
-            	<h2>Beretta Cyprus</h2>
+			<ul>
+				<?php $args = array( 'post_type' => 'portfolio_item', 'posts_per_page' => 10 );
+					$loop = new WP_Query( $args );
+					while ( $loop->have_posts() ) : $loop->the_post();
+				?>
+				<li><h2><a rel="<?php the_permalink(); ?>" id="<?php the_id(); ?>" title="<?php echo( basename( get_permalink() ) ); ?>"><?php the_title(); ?></a></h2><div class="projPanel"><?php echo the_content(); ?></div> <span><?php the_time('F j Y') ?></span></li>
+				  
+				<?php endwhile; wp_reset_postdata(); 
+			?>
+			</ul>
 
-            	<img src="http://placehold.it/500x260" />
-
-            	<p>This is my bla bla bla</p>
-            </div>
 		</div>
 
 		<div id="footer">
@@ -75,18 +79,26 @@ Template Name: Portfolio
 
 	</li>
 
-	<li id="archive">
+	<li id="showcase">
 
 		<div class="content">
 
 			<ul>
-				<?php
-				$my_query = new WP_Query( array( "nopaging"=>true ) );
-				while ($my_query->have_posts()) :
-					$my_query->the_post();
+				<?php $args = array( 'post_type' => 'portfolio_item', 'posts_per_page' => 9 );
+					$loop = new WP_Query( $args );
+					while ( $loop->have_posts() ) : $loop->the_post();
 				?>
-					<li><h2><a rel="<?php the_permalink(); ?>" id="<?php the_id(); ?>" title="<?php echo( basename( get_permalink() ) ); ?>"><?php the_title(); ?></a></h2> <span><?php the_time('F j Y') ?></span></li>
-				<?php endwhile; wp_reset_postdata(); ?>
+				<li>
+					<img src="http://placehold.it/150x100" />
+					<h2>
+						<a rel="<?php the_permalink(); ?>" id="<?php the_id(); ?>" title="<?php echo( basename( get_permalink() ) ); ?>">
+							<?php the_title(); ?>
+						</a>
+					</h2>
+					<span><?php the_time('F j Y') ?></span>
+				</li>				  
+				<?php endwhile; wp_reset_postdata(); 
+			?>
 			</ul>
 
 		</div>
@@ -100,18 +112,18 @@ Template Name: Portfolio
 <script>
 	$(document).ready(function () {
 		// Cached DOM references
-		var $goarchive = $('#goarchive'),
+		var $goshowcase = $('#goshowcase'),
 			$gopost = $('#gopost'),
-			$archive = $('#archive'),
+			$showcase = $('#showcase'),
 			$post = $('#post');
 
-		function goarchive() {
-			$goarchive.fadeOut(300);
+		function goshowcase() {
+			$goshowcase.fadeOut(300);
 			$post.hide('slide', {
 				direction: 'left'
 			}, 600, function () {
-				$archive.scrollTop(0);
-				$archive.show('slide', {
+				$showcase.scrollTop(0);
+				$showcase.show('slide', {
 					direction: 'right'
 				}, 600);
 				$gopost.fadeIn(300);
@@ -120,14 +132,14 @@ Template Name: Portfolio
 
 		function gopost() {
 			$gopost.fadeOut(300);
-			$archive.hide('slide', {
+			$showcase.hide('slide', {
 				direction: 'right'
 			}, 600, function () {
 				$post.scrollTop(0);
 				$post.show('slide', {
 					direction: 'left'
 				}, 600);
-				$goarchive.fadeIn(300);
+				$goshowcase.fadeIn(300);
 			});
 		};
 
@@ -141,11 +153,11 @@ Template Name: Portfolio
 
 			$post.load(perma + ' #post', function () {
 				$gopost.fadeOut(300);
-				$archive.hide('slide', {
+				$showcase.hide('slide', {
 					direction: 'right'
 				}, 600, function () {
 					$post.scrollTop(0);
-					$goarchive.fadeIn(300);
+					$goshowcase.fadeIn(300);
 					$post.show('slide', {
 						direction: 'left'
 					}, 600, function () {
@@ -159,11 +171,11 @@ Template Name: Portfolio
 			});
 		}
 
-		$goarchive.on('click',$goarchive,goarchive);
+		$goshowcase.on('click',$goshowcase,goshowcase);
 
 		$gopost.on('click',$gopost,gopost);
 
-		$archive.find('a').on('click',$archive.find('a'),loadpost);
+		$showcase.find('a').on('click',$showcase.find('a'),loadpost);
 
 
 		/* arrow key navigation */
@@ -171,13 +183,13 @@ Template Name: Portfolio
 		$(document).keydown(function(ev) {
 			if(ev.which === 39) {
 				if ( $post.is(':visible') ) {
-					goarchive();
+					goshowcase();
 				}
 				return false;
 			}
 
 			if(ev.which === 37) {
-				if ( $archive.is(':visible') ) {
+				if ( $showcase.is(':visible') ) {
 					gopost();
 				}
 				return false;
