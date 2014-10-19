@@ -202,7 +202,6 @@ blockquote {
 }
 
 /** My portfolio styles **/
-
 #showcase {
 	display: none;
 }
@@ -214,12 +213,12 @@ blockquote {
 }
 
 #showcase li {
-	width: 200px;
-	display: inline-block;
-	margin: 20px;
+	text-align: center;
+	padding: 12px 4px;
+	margin: 100px 0;
 	list-style: none;
 	font-size: 12px;
-	text-align: center;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 #showcase li:last-child {
@@ -229,6 +228,8 @@ blockquote {
 #showcase li span {
 	text-transform: uppercase;
 }
+
+
 
 #hello {
 	font-weight: bold;
