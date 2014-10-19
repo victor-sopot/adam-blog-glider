@@ -16,6 +16,29 @@ function register_my_menus()
 
 add_action( 'init', 'register_my_menus' );
 
+add_action( 'init', 'create_post_type' );
+function create_post_type() {
+  register_post_type( 'portfolio_item',
+    array(
+      'labels' => array(
+        'name' => __( 'Project' ),
+        'singular_name' => __( 'Projects' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+    )
+  );
+}
+
+// Show portfolio items on home page
+add_action( 'pre_get_posts', 'add_my_post_types_to_query' );
+
+function add_my_post_types_to_query( $query ) {
+  if ( is_home() && $query->is_main_query() )
+    $query->set( 'post_type', array( 'post', 'portfolio_item' ) );
+  return $query;
+}
+
 function glider_widgets_init() {
 
 	register_sidebar( array(
