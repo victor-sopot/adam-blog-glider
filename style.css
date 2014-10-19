@@ -166,6 +166,15 @@ blockquote {
 	right: 20px;
 }
 
+#goitem {
+	left: 20px;
+	display: none;
+}
+
+#goshowcase {
+	right: 20px;
+}
+
 #archive {
 	display: none;
 }
@@ -189,6 +198,35 @@ blockquote {
 }
 
 #archive li span {
+	text-transform: uppercase;
+}
+
+/** My portfolio styles **/
+
+#showcase {
+	display: none;
+}
+
+#showcase ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+#showcase li {
+	width: 200px;
+	display: inline-block;
+	margin: 20px;
+	list-style: none;
+	font-size: 12px;
+	text-align: center;
+}
+
+#showcase li:last-child {
+	border: none;
+}
+
+#showcase li span {
 	text-transform: uppercase;
 }
 
